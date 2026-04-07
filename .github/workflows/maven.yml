@@ -27,6 +27,13 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
+    - name: Replace database user
+      run: sed -i 's/${DB_USER}/${{ secrets.DB_USER }}/' src/main/resources/application.properties
+
+    - name: Replace database password
+      run: sed -i 's/${DB_PASSWORD}/${{ secrets.DB_PASSWORD }}/' src/main/resources/application.properties
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
