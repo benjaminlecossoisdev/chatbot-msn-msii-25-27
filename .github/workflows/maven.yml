@@ -44,5 +44,9 @@ jobs:
       with:
         username: fbansept
         password: ${{ secrets.DOCKER_PASSWORD }}
+
     - name: Push image on dockerhub
       run: docker push fbansept/chatbot-msii:${{ env.VERSION }}
+
+    - name: Push image latest tag on dockerhub
+      run: docker push fbansept/chatbot-msii:latest
