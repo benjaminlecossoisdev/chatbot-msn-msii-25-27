@@ -108,7 +108,7 @@ public class MockAppUserDao implements AppUserDao {
 
         if(id == 1) {
             return Optional.of(new AppUser(
-                    1, "a@a.com", "root", "User A"
+                    1, "a@a.com", "root", "User A",true
             ));
         }
 
@@ -168,5 +168,15 @@ public class MockAppUserDao implements AppUserDao {
     @Override
     public Page<AppUser> findAll(Pageable pageable) {
         return null;
+    }
+
+    @Override
+    public Optional<AppUser> findByEmail(String email) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<String> listeAdminPseudo() {
+        return List.of();
     }
 }
