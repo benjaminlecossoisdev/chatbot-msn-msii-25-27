@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -28,6 +29,9 @@ import java.util.Map;
 @CrossOrigin
 @Tag(name = "Gestion des accès", description = "API de connexion et d'inscription utilisant des JWT")
 public class AuthController {
+
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
     @Autowired
     protected AppUserDao appUserDao;
@@ -77,7 +81,7 @@ public class AuthController {
             String jwt = Jwts.builder()
                     .setSubject(user.getEmail())
                     .addClaims(Map.of("role", userDetails.getUser().isAdmin() ? "admin" : "user"))
-                    .signWith(SignatureAlgorithm.HS256, "secret")
+                    .signWith(SignatureAlgorithm.HS256, jwtSecret)
                     .compact();
 
             return new ResponseEntity<>(jwt, HttpStatus.OK);

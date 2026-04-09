@@ -13,6 +13,8 @@ import java.util.Map;
 @Repository
 public interface RecipeDao extends JpaRepository<Recipe,Integer> {
 
+    List<Recipe> findAllByOrderByReturnCountDesc();
+
 //    @Query("SELECT new edu.ban7.chatbotmsnmsii2527.dao.RecipeDao.RecipeCount(r.name, count(*)) " +
 //            "FROM Recipe r " +
 //            "JOIN r.tags t")
